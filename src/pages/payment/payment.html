@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Proportional Payments</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding> 
+  
+  <ion-item-group>
+    <ion-item-divider color="light">Recurring</ion-item-divider>
+
+    <ion-item-group *ngFor="let pay of recurringPayments">
+      <ion-item-divider (click)="changeDisplayArticles(pay.personName)">
+        <span text-uppercase>{{pay.personName}}: </span>
+        <span>{{pay.amount}} euros</span>
+        <ion-icon *ngIf="pay.displayArticles==false" name="arrow-dropdown"></ion-icon>
+        <ion-icon *ngIf="pay.displayArticles==true" name="arrow-dropup"></ion-icon>
+      </ion-item-divider>
+
+      <ion-list *ngIf="pay.displayArticles==true">
+        <ion-item *ngFor="let art of pay.articles">
+          <span text-uppercase>{{art.name}}: </span>
+          <span>{{art.price}} euros</span>          
+        </ion-item>
+      </ion-list>
+    
+    </ion-item-group>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light">Not Recurring</ion-item-divider>
+
+    <ion-item-group *ngFor="let pay of notRecurringPayments">
+      <ion-item-divider>
+        <span text-uppercase>{{pay.article.name}}: </span>
+        <span>{{pay.article.price}} euros</span>
+      </ion-item-divider>
+
+      <ion-list>
+        <ion-item *ngFor="let person of pay.payments">
+          <span text-capitalize>{{person}} </span>
+        </ion-item>
+      </ion-list>
+    
+    </ion-item-group>
+  </ion-item-group>
+
+</ion-content>

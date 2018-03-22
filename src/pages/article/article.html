@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-left icon-only round
+      (click)="showAddView()">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Share Articles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding> 
+  <div *ngIf="this.action==this.ADD_ACTION 
+      || this.action==this.EDIT_ACTION">
+    <ion-list>
+      <ion-item>
+        <ion-label>Article Name:</ion-label>
+        <ion-input [(ngModel)]="name" placeholder="Insert name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Price:</ion-label>
+        <ion-input [(ngModel)]="price" type="tel" placeholder="Insert price"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Recurring</ion-label>
+        <ion-checkbox [(ngModel)]="recurring"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+    <button ion-button block *ngIf="this.action==this.ADD_ACTION" 
+        (click)="addArticle()">Add</button>
+    <button ion-button block *ngIf="this.action==this.EDIT_ACTION"
+        (click)="updateArticle()">Edit</button>
+    <button ion-button block 
+        (click)="cancelAction()">Cancel</button>
+  </div>
+
+  <ion-item-group>
+    <ion-item-divider color="light">Recurring</ion-item-divider>
+    <ion-item *ngFor="let item of recurringArticles">
+      <span text-uppercase>{{item.name}}: </span>
+      <span>{{item.price}} euros</span>
+      
+      <button ion-button item-right (click)="showUpdateView(item)">
+        <ion-icon name="brush"></ion-icon>
+      </button>
+      <button ion-button item-right (click)="deleteRecurringArticle(item)">
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light">Not Recurring</ion-item-divider>
+    <ion-item *ngFor="let item of notRecurringArticles">
+      <span text-uppercase>{{item.name}}: </span>
+      <span>{{item.price}} euros</span>
+      
+      <button ion-button item-right (click)="showUpdateView(item)">
+        <ion-icon name="brush"></ion-icon>
+      </button>
+      <button ion-button item-right (click)="deleteNotRecurringArticle(item)">
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-item-group>
+</ion-content>

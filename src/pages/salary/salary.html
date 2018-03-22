@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-left icon-only round
+      (click)="showAddAction()">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Salaries</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding> 
+  <div *ngIf="this.action==this.ADD_ACTION 
+      || this.action==this.EDIT_ACTION">
+    <ion-list>
+      <ion-item>
+        <ion-label>Name:</ion-label>
+        <ion-input [(ngModel)]="name" placeholder="Insert name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Salary:</ion-label>
+        <ion-input [(ngModel)]="salary" placeholder="Insert salary"></ion-input>
+      </ion-item>
+    </ion-list>
+    
+    <button ion-button block *ngIf="this.action==this.ADD_ACTION" 
+        (click)="addSalary()">Add</button>
+    <button ion-button block *ngIf="this.action==this.EDIT_ACTION"
+        (click)="updateSalary()">Edit</button>
+    <button ion-button block 
+        (click)="cancelAction()">Cancel</button>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let item of salaries">
+      <span text-uppercase>{{item.name}}:</span>
+      <span>{{item.salary}} euros</span>
+      <button ion-button item-right (click)="showEditAction(item)">
+        <ion-icon name="brush"></ion-icon>
+      </button>
+      <button ion-button item-right (click)="deleteSalary(item)">
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>
