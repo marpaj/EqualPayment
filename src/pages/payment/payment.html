@@ -7,12 +7,14 @@
 <ion-content padding> 
   
   <ion-item-group>
-    <ion-item-divider color="light">Recurring</ion-item-divider>
+    <ion-item-divider color="light">
+     <span>Recurring: {{totalRecurring}} euros</span>
+    </ion-item-divider>
 
     <ion-item-group *ngFor="let pay of recurringPayments">
-      <ion-item-divider (click)="changeDisplayArticles(pay.personName)">
+      <ion-item-divider (click)="pay.onChangeDisplayArticle()"><!--changeDisplayArticles(pay.personName)">-->
         <span text-uppercase>{{pay.personName}}: </span>
-        <span>{{pay.amount}} euros</span>
+        <span>{{pay.getTotal()}} euros</span>
         <ion-icon *ngIf="pay.displayArticles==false" name="arrow-dropdown"></ion-icon>
         <ion-icon *ngIf="pay.displayArticles==true" name="arrow-dropup"></ion-icon>
       </ion-item-divider>

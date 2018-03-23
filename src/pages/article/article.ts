@@ -13,13 +13,13 @@ export class ArticlePage {
   LIST_ACTION: string = 'LIST';
 
   //Erros messages
-  ERROR_DUPLICATE='The new article already exists!!';
-  ERROR_NUMBER='The article price must be a number.';
-  ERROR_MORE_THAN_ZER0='The price must be more than zero.';
-  ERROR_NULL_NAME='Name is obligatory.';
-  ERROR_NULL_PRICE='Price is obligatory.';
+  ERROR_DUPLICATE='The article NAME already exists in the recurring list. Sorry, that is not possible!';
+  ERROR_NUMBER='The article PRICE must be a number.';
+  ERROR_MORE_THAN_ZER0='The article PRICE must be more than zero.';
+  ERROR_NULL_NAME='Please, article NAME is required.';
+  ERROR_NULL_PRICE='Please, article PRICE is required.';
   ERROR_TEMPLATE_OK='Ok';
-  ERROR_TEMPLATE_TITLE='Error saving data!';
+  ERROR_TEMPLATE_TITLE='Error saving the article!';
 
   name: string;
   price: number;
@@ -142,15 +142,19 @@ export class ArticlePage {
     let isOk:boolean = true;
 
     //Checking Name input value
-    if (this.name==undefined) {
+    if (this.name==undefined || this.name=='') {
       isOk = false;
       this.displayAlert(this.ERROR_NULL_NAME);
 
     } else {
+      console.log('price is ' + this.price);
       //Checking Price input value
-      if (this.price==undefined) {
+      if (this.price==undefined || this.price==null) {
         isOk = false;
         this.displayAlert(this.ERROR_NULL_PRICE);
+      } else if (isNaN(this.price)) {
+        isOk = false;
+        this.displayAlert(this.ERROR_NUMBER);    
       } else if (this.price <= 0) {
         isOk = false;
         this.displayAlert(this.ERROR_MORE_THAN_ZER0);

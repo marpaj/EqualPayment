@@ -14,13 +14,13 @@ export class SalaryPage {
   LIST_ACTION: string = 'LIST';
 
   //Erros messages
-  ERROR_DUPLICATE='The name of the person already exists!';
-  ERROR_NUMBER='The salary must be a number.';
-  ERROR_MORE_THAN_ZER0='The salary must be more than zero.';
-  ERROR_NAME_OBLIGATORY='Name is obligatory';
-  ERROR_SALARY_OBLIGATORY='Salary is obligatory';
+  ERROR_DUPLICATE='The person NAME already exists. Sorry, that is not possible!';
+  ERROR_NUMBER='The SALARY must be a number.';
+  ERROR_MORE_THAN_ZER0='The SALARY must be more than zero.';
+  ERROR_NAME_OBLIGATORY='Please, the NAME is required';
+  ERROR_SALARY_OBLIGATORY='Please, the SALARY is required';
   ERROR_TEMPLATE_OK='Ok';
-  ERROR_TEMPLATE_TITLE='Error saving data!';
+  ERROR_TEMPLATE_TITLE='Error saving the salary!';
 
   name: string;
   salary: number;
@@ -95,15 +95,18 @@ export class SalaryPage {
     let isOk:boolean = true;
 
     //Checking name isInputValuesOk
-    if (this.name==undefined) {
+    if (this.name==undefined || this.name=='') {
       isOk=false;
       this.displayAlert(this.ERROR_NAME_OBLIGATORY);
       
-    } else {
     //Checking price input
-      if (this.salary==undefined) {
+    } else {
+      if (this.salary==undefined || this.salary==null) {
         isOk=false;
         this.displayAlert(this.ERROR_SALARY_OBLIGATORY);
+      } else if (isNaN(this.salary)) {
+        isOk = false;
+        this.displayAlert(this.ERROR_NUMBER);
       } else if (this.salary <= 0) {
         isOk=false;
         this.displayAlert(this.ERROR_MORE_THAN_ZER0);
@@ -125,6 +128,8 @@ export class SalaryPage {
             break;
         }
       }
+    } else {
+      isOk = false;
     }
     return isOk;
   }
